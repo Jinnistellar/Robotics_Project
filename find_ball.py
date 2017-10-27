@@ -5,8 +5,8 @@ import math
 
 
 # function for detecting the ball of yellow
-def findball() :
-        img = cv2.imread("camImage1.png",1)
+def findball():
+        img = cv2.imread("camImage.png",1)
         
         #cv2.namedWindow("HSV Image",cv2.CV_WINDOW_AUTOSIZE)
         #cv2.namedWindow("Binary Image",cv2.CV_WINDOW_AUTOSIZE)
@@ -20,7 +20,7 @@ def findball() :
         hsv = cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
         cv2.imshow("HSV Image", hsv)
         
-        blue = cv2.inRange(hsv,np.array([100,100,100],np.uint8),np.array([130,255,255],np.uint8))
+        blue = cv2.inRange(hsv,np.array([1,100,150],np.uint8),np.array([100,255,255],np.uint8))
         cv2.imshow("Binary Image", blue)
         
         erode = cv2.erode(blue,None,iterations = 1)
@@ -35,7 +35,7 @@ def findball() :
         dilate = cv2.dilate(smoothing,None,iterations = 3)
         #storage=cv2.CreateMemStorage(0)
         #dilate=camImage.fromarray(dilate)
-       # circles=cv2.HoughCircles(img,cv2.HOUGH_GRADIENT,2,2.5,200,100,25,0)
+        #circles=cv2.HoughCircles(img,cv2.HOUGH_GRADIENT,2,2.5,200,100,25,0)
         circles = cv2.HoughCircles(np.asarray(dilate), cv2.HOUGH_GRADIENT, 100, 300, 100, 50)
         ##########################################
         
@@ -79,7 +79,7 @@ def findball() :
         elif (Cx>160 and Cx<185): 
             print "Move left to adjust"
             return [1,front]
-        elif Cx < 95 :
+        elif Cx < 95:
             return [4,front]
         elif Cx<160:
          #   print "\nKick using LEFT Foot"
@@ -90,7 +90,7 @@ def findball() :
 
 if __name__ == '__main__':
   
-  IP = "192.168.2.112"              # IP add
+  IP = "192.168.2.100"              # IP add
   PORT = 9559
 
   # Read IP address from first argument if any.
